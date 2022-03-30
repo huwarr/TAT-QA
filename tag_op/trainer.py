@@ -52,11 +52,11 @@ def main():
     best_result = float("-inf")
     logger.info("Loading data...")
 
-    train_itr = TaTQABatchGen(args, data_mode = "train", encoder=args.encoder)
+    train_itr = TaTQABatchGen(args, data_mode = "train", encoder="genbert")
     if args.ablation_mode != 3:
-        dev_itr = TaTQATestBatchGen(args, data_mode="dev", encoder=args.encoder)
+        dev_itr = TaTQATestBatchGen(args, data_mode="dev", encoder="genbert")
     else:
-        dev_itr = TaTQABatchGen(args, data_mode="dev", encoder=args.encoder)
+        dev_itr = TaTQABatchGen(args, data_mode="dev", encoder="genbert")
 
     num_train_steps = int(args.max_epoch * len(train_itr) / args.gradient_accumulation_steps)
     logger.info("Num update steps {}!".format(num_train_steps))

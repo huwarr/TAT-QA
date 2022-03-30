@@ -45,7 +45,7 @@ pprint(args)
 set_environment(args.cuda)
 
 def main():
-    dev_itr = TaTQATestBatchGen(args, data_mode="dev", encoder=args.encoder)
+    dev_itr = TaTQATestBatchGen(args, data_mode="dev", encoder="genbert")
     # test_itr = TaTQATestBatchGen(args, data_mode="test", encoder=args.encoder)
 
     #if args.encoder == 'roberta':

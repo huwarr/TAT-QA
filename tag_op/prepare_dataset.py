@@ -2,7 +2,6 @@ import os
 import pickle
 import argparse
 from tag_op.data.tatqa_dataset import TagTaTQAReader, TagTaTQATestReader
-from transformers.tokenization_roberta import RobertaTokenizer
 
 from transformers import BertTokenizer
 
@@ -39,15 +38,15 @@ else:
     data_mode = ["train"]
 
 data_format = "tatqa_dataset_{}.json"
-print(f'==== NOTE ====: encoder:{args.encoder}, mode:{args.mode}')
+print(f'==== NOTE ====: encoder: genbert, mode:{args.mode}')
 
 for dm in data_mode:
     dpath = os.path.join(args.input_path, data_format.format(dm))
     data = data_reader._read(dpath)
     print(data_reader.skip_count)
     data_reader.skip_count = 0
-    print("Save data to {}.".format(os.path.join(args.output_dir, f"tagop_{args.encoder}_cached_{dm}.pkl")))
+    print("Save data to {}.".format(os.path.join(args.output_dir, f"tagop_genbert_cached_{dm}.pkl")))
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
-    with open(os.path.join(args.output_dir, f"tagop_{args.encoder}_cached_{dm}.pkl"), "wb") as f:
+    with open(os.path.join(args.output_dir, f"tagop_genbert_cached_{dm}.pkl"), "wb") as f:
         pickle.dump(data, f)
