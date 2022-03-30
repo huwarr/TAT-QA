@@ -1063,6 +1063,8 @@ class BertTransformer(BertPreTrainedModel):
         input_mask = self.mask(input_ids, input_mask)
         encoder_output, pooled_output = self.encode(input_ids, None, input_mask, random_shift)
         
+        return encoder_output, pooled_output
+
         only_generative_head = False
         if answer_as_question_spans is None:
             head_type, only_generative_head = torch.zeros_like(input_ids[:, 0]), True
