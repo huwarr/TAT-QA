@@ -15,15 +15,19 @@ from transformers import RobertaModel, BertModel
 from tag_op.tagop.modeling_tagop import TagopModel
 from tag_op.tagop.model import TagopFineTuningModel
 from pathlib import Path
+# GenBERT
+from modeling import BertTransformer
 
 parser = argparse.ArgumentParser("TagOp training task.")
 options.add_data_args(parser)
 options.add_train_args(parser)
 options.add_bert_args(parser)
-parser.add_argument("--encoder", type=str, default='roberta')
+#parser.add_argument("--encoder", type=str, default='roberta')
 parser.add_argument("--op_mode", type=int, default=0)
 parser.add_argument("--ablation_mode", type=int, default=0)
 parser.add_argument("--test_data_dir", type=str, default="./tag_op/cache")
+# GenBERT pretrained + finetuned on DROP
+parser.add_argument("--init_weights_dir", default='out_drop_finetune_syntext_and_numeric', type=str)
 
 args = parser.parse_args()
 if args.ablation_mode != 0:
@@ -39,7 +43,7 @@ with open(args_path, "w") as f:
 
 args.batch_size = args.batch_size // args.gradient_accumulation_steps
 
-logger = create_logger("Roberta Training", log_file=os.path.join(args.save_dir, args.log_file))
+logger = create_logger("Training", log_file=os.path.join(args.save_dir, args.log_file))
 
 pprint(args)
 set_environment(args.seed, args.cuda)
@@ -57,13 +61,15 @@ def main():
     num_train_steps = int(args.max_epoch * len(train_itr) / args.gradient_accumulation_steps)
     logger.info("Num update steps {}!".format(num_train_steps))
 
-    logger.info(f"Build {args.encoder} model.")
-    if args.encoder == 'bert':
-        bert_model = BertModel.from_pretrained('bert-large-uncased')
-    elif args.encoder == 'roberta':
-        bert_model = RobertaModel.from_pretrained(args.roberta_model)
-    elif args.encoder == 'finbert':
-        bert_model = BertModel.from_pretrained(args.finbert_model)
+    #logger.info(f"Build {args.encoder} model.")
+    #if args.encoder == 'bert':
+    #    bert_model = BertModel.from_pretrained('bert-large-uncased')
+    #elif args.encoder == 'roberta':
+    #    bert_model = RobertaModel.from_pretrained(args.roberta_model)
+    #elif args.encoder == 'finbert':
+    #    bert_model = BertModel.from_pretrained(args.finbert_model)
+    logger.info(f"Build GenBERT model.")
+    bert_model = BertTransformer.from_pretrained(args.init_weights_dir)
 
     if args.ablation_mode == 0:
         operators = OPERATOR_CLASSES_

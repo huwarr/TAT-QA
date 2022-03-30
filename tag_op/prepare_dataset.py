@@ -11,17 +11,21 @@ parser.add_argument("--input_path", type=str, default='./dataset_tagop')
 parser.add_argument("--output_dir", type=str, default="./tag_op/cache")
 parser.add_argument("--passage_length_limit", type=int, default=463)
 parser.add_argument("--question_length_limit", type=int, default=46)
-parser.add_argument("--encoder", type=str, default="roberta")
+#parser.add_argument("--encoder", type=str, default="roberta")
 parser.add_argument("--mode", type=str, default='train')
 
 args = parser.parse_args()
 
-if args.encoder == 'roberta':
-    tokenizer = RobertaTokenizer.from_pretrained(args.input_path + "/roberta.large")
-    sep = '<s>'
-elif args.encoder == 'bert':
-    tokenizer = BertTokenizer.from_pretrained('bert-large-uncased')
-    sep = '[SEP]'
+#if args.encoder == 'roberta':
+#    tokenizer = RobertaTokenizer.from_pretrained(args.input_path + "/roberta.large")
+#    sep = '<s>'
+#elif args.encoder == 'bert':
+#    tokenizer = BertTokenizer.from_pretrained('bert-large-uncased')
+#    sep = '[SEP]'
+
+# For GanBERT
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+sep = '[SEP]'
 
 
 if args.mode == 'test':

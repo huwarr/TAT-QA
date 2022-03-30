@@ -14,6 +14,8 @@ from tag_op.data.data_util import get_op_3, get_arithmetic_op_index_3
 from transformers import RobertaModel, BertModel
 from tag_op.tagop.modeling_tagop import TagopModel
 from tag_op.tagop.model import TagopPredictModel
+# GenBERT
+from modeling import BertTransformer
 
 parser = argparse.ArgumentParser("Tagop training task.")
 options.add_data_args(parser)
@@ -23,7 +25,7 @@ parser.add_argument("--model_path", type=str, default="checkpoint")
 parser.add_argument("--mode", type=int, default=1)
 parser.add_argument("--op_mode", type=int, default=0)
 parser.add_argument("--ablation_mode", type=int, default=0)
-parser.add_argument("--encoder", type=str, default='roberta')
+#parser.add_argument("--encoder", type=str, default='roberta')
 parser.add_argument("--test_data_dir", type=str, default="tag_op/cache/")
 
 args = parser.parse_args()
@@ -46,10 +48,11 @@ def main():
     dev_itr = TaTQATestBatchGen(args, data_mode="dev", encoder=args.encoder)
     # test_itr = TaTQATestBatchGen(args, data_mode="test", encoder=args.encoder)
 
-    if args.encoder == 'roberta':
-        bert_model = RobertaModel.from_pretrained(args.roberta_model)
-    elif args.encoder == 'bert':
-        bert_model = BertModel.from_pretrained('bert-large-uncased')
+    #if args.encoder == 'roberta':
+    #    bert_model = RobertaModel.from_pretrained(args.roberta_model)
+    #elif args.encoder == 'bert':
+    #    bert_model = BertModel.from_pretrained('bert-large-uncased')
+    bert_model = BertTransformer.from_pretrained(args.init_weights_dir)
 
     if args.ablation_mode == 0:
         operators = [1 for _ in range(10)]
