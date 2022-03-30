@@ -27,7 +27,7 @@ parser.add_argument("--op_mode", type=int, default=0)
 parser.add_argument("--ablation_mode", type=int, default=0)
 parser.add_argument("--test_data_dir", type=str, default="./tag_op/cache")
 # GenBERT pretrained + finetuned on DROP
-parser.add_argument("--init_weights_dir", default='genbert', type=str)
+parser.add_argument("--init_weights_dir", default='./tag_op/genbert', type=str)
 
 args = parser.parse_args()
 if args.ablation_mode != 0:
