@@ -5,3 +5,4 @@ dataset*
 .DS_Store
 tag_op/cache
 *.pkl
+/.venv
