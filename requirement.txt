@@ -1,5 +1,5 @@
-torch==1.7.1
-transformers==3.5.0
+torch==1.10.0
+transformers
 allennlp==0.9
 tensorflow==2.2.0
 tqdm==4.28.1
@@ -11,3 +11,4 @@ filelock==3.0.12
 datasets==1.1.0
 pytorch-pretrained-bert==0.6.2
 pytorch-transformers==1.1.0
+gdown

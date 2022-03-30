@@ -2,7 +2,11 @@
 conda create -n tat-qa python==3.7
 conda activate tat-qa
 pip install -r requirement.txt
-pip install torch-scatter -f https://pytorch-geometric.com/whl/torch-1.7.0+${CUDA}.html
+pip install torch-scatter -f https://pytorch-geometric.com/whl/torch-1.10.0+cu102.html  #+${CUDA}.html
+
+# Download pretrained GenBERT (out_syntext_and_numeric_finetune_numeric)
+cd tag_op
+gdown --folder https://drive.google.com/drive/folders/1-KmhWF4Jex4gyuz1J2VANd1ycmtsggQ3
 
 # Prepare dataset
 PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/tag_op python tag_op/prepare_dataset.py --mode [train/dev/test]
