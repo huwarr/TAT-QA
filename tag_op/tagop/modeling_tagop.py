@@ -463,9 +463,10 @@ class TagopModel(nn.Module):
                 ):
         outputs = self.encoder(
             input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=token_type_ids,
-            position_ids=position_ids)
+            input_mask=attention_mask,
+            token_type_ids=token_type_ids
+            #,position_ids=position_ids
+            )
         sequence_output = outputs[0]
         batch_size = sequence_output.shape[0]
 
