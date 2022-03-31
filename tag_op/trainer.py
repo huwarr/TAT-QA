@@ -69,7 +69,7 @@ def main():
     #elif args.encoder == 'finbert':
     #    bert_model = BertModel.from_pretrained(args.finbert_model)
     logger.info(f"Build GenBERT model.")
-    bert_model = BertTransformer.from_pretrained(args.init_weights_dir)
+    bert_model = BertTransformer.from_pretrained(args.init_weights_dir).bert
 
     if args.ablation_mode == 0:
         operators = OPERATOR_CLASSES_
