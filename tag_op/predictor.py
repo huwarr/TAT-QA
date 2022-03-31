@@ -27,6 +27,7 @@ parser.add_argument("--op_mode", type=int, default=0)
 parser.add_argument("--ablation_mode", type=int, default=0)
 #parser.add_argument("--encoder", type=str, default='roberta')
 parser.add_argument("--test_data_dir", type=str, default="tag_op/cache/")
+parser.add_argument("--init_weights_dir", default='./tag_op/genbert', type=str)
 
 args = parser.parse_args()
 if args.ablation_mode != 0:
@@ -52,7 +53,7 @@ def main():
     #    bert_model = RobertaModel.from_pretrained(args.roberta_model)
     #elif args.encoder == 'bert':
     #    bert_model = BertModel.from_pretrained('bert-large-uncased')
-    bert_model = BertTransformer.from_pretrained(args.init_weights_dir)
+    bert_model = BertTransformer.from_pretrained(args.init_weights_dir).bert
 
     if args.ablation_mode == 0:
         operators = [1 for _ in range(10)]
